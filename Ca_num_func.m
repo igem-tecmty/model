@@ -6,12 +6,12 @@ function [aq_vol_flow, co_vol_flow,droplet_volume] = Ca_num_func(int_tension,Ca_
 %droplet generation
 %Governing equations are based on[1], as well as calculations from [2].
 %
-%     [1] P. Zhu and L. Wang, ìPassive and active droplet generation 
-%         with microfluidics: a review,î Lab Chip, vol. 17, no. 1, 
-%         pp. 34ñ75, 2017.
-%     [2] C. N. Baroud, F. Gallaire, and R. Dangla, ìDynamics of 
-%         microfluidic droplets,î Lab Chip, vol. 10, no. 16, pp. 
-%         2032ñ2045, 2010.
+%     [1] P. Zhu and L. Wang, ‚ÄúPassive and active droplet generation 
+%         with microfluidics: a review,‚Äù Lab Chip, vol. 17, no. 1, 
+%         pp. 34‚Äì75, 2017.
+%     [2] C. N. Baroud, F. Gallaire, and R. Dangla, ‚ÄúDynamics of 
+%         microfluidic droplets,‚Äù Lab Chip, vol. 10, no. 16, pp. 
+%         2032‚Äì2045, 2010.
 %   
 %
 %Input arguments
@@ -34,11 +34,13 @@ function [aq_vol_flow, co_vol_flow,droplet_volume] = Ca_num_func(int_tension,Ca_
 %
 %Output arguments
 %
-%      aq_vol_flow      Disperse phase flow rate[µL/min]
-%      co_vol_flow      Continuous phase flow rate[µL/min]
+%      aq_vol_flow      Disperse phase flow rate[¬µL/min]
+%      co_vol_flow      Continuous phase flow rate[¬µL/min]
 %      droplet_volume   Calculated volume of droplet [pL]
-% Author: Ricardo GarcÌa RamÌrez 17. July 2019
+% Author: Ricardo Garc√≠a Ram√≠rez 17. July 2019
 % ricardogr[at]uvic.ca, a00759652[at]itesm.mx
+
+%Input parameters
 wc = 100e-6; %width of channel [m]
 h = 50e-6;   %height of channel [m]
 aq_int_diam = 4.61*1e-3; %Internal diameter of syringe being used for disperse phase
@@ -56,9 +58,9 @@ co_dynamic_viscosity = co_density*co_kinematic_viscosity; %[N/m]
 aq_velocity = Ca_dis*int_tension/aq_dynamic_viscosity; % [m/s]
 co_velocity = Ca_con*int_tension/co_dynamic_viscosity; % [m/s]
 %Compute volume flow
-aq_vol_flow = (aq_int_diam/2)^2*pi*aq_velocity*60e3; % [µL/min]
-co_vol_flow = (co_int_diam/2)^2*pi*co_velocity*60e3; % [µL/min]
-%Compute volume flow that the pump can make, at least 1 µL/min
+aq_vol_flow = (aq_int_diam/2)^2*pi*aq_velocity*60e3; % [¬µL/min]
+co_vol_flow = (co_int_diam/2)^2*pi*co_velocity*60e3; % [¬µL/min]
+%Compute volume flow that the pump can make, at least 1 ¬µL/min
 while (aq_vol_flow < 1 || co_vol_flow < 1)
     aq_vol_flow = aq_vol_flow*1.01;
     co_vol_flow = co_vol_flow*1.01;
