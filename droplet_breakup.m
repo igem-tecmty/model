@@ -1,3 +1,14 @@
+%COMSOL model using MatLink and MATLAB
+%Simulates the droplet breakup based of flow rates of both the continuous 
+%and disperse phase for droplet generation
+%The COMSOL simulation was based on the two-level set method
+%The computational fluid dynamics (CFD) module is used for this simulation to run
+%The COMSOL model was created using COMSOl 5.1, and exported into MATLAB
+%MatLink uses the MATLAB environment to connect to COMSOL
+% Author: Ricardo García Ramírez 31. July 2019
+% ricardogr[at]uvic.ca, a00759652[at]itesm.mx  
+
+%Determine the model function
 function out = model
 
 ModelUtil.showProgress(true)
@@ -6,25 +17,25 @@ import com.comsol.model.*
 import com.comsol.model.util.*
 
 model = ModelUtil.create('Model');
-
+%Include CFD module
 model.modelPath('C:\Program Files\COMSOL\COMSOL51\Multiphysics\applications\CFD_Module\Multiphase_Benchmarks');
 
 model.comments(['Untitled\n\n']);
 
 model.modelNode.create('comp1');
-
+%Determine geometry
 model.geom.create('geom1', 3);
 
 model.mesh.create('mesh1', 'geom1');
-
+%Create Two phase flow level set study
 model.physics.create('tpf', 'LaminarTwoPhaseFlowLevelSet', 'geom1');
-
+%First phase initialization
 model.study.create('std1');
 model.study('std1').create('phasei', 'PhaseInitialization');
 model.study('std1').feature('phasei').activate('tpf', true);
 model.study('std1').create('time', 'Transient');
 model.study('std1').feature('time').activate('tpf', true);
-
+%Create geometry model based on proposed design
 model.geom('geom1').lengthUnit('mm');
 model.geom('geom1').feature.create('wp1', 'WorkPlane');
 model.geom('geom1').feature('wp1').set('unite', true);
@@ -55,7 +66,7 @@ model.geom('geom1').feature('ext1').selection('input').set({'wp1'});
 model.geom('geom1').feature('ext1').setIndex('distance', '0.05', 0);
 model.geom('geom1').run('ext1');
 model.geom('geom1').run('fin');
-
+%Define 
 model.material.create('mat1', 'Common', 'comp1');
 model.material('mat1').label('Fluid 1');
 model.material('mat1').propertyGroup('def').set('density', {'1e3[kg/m^3]'});
