@@ -12,7 +12,8 @@ function [aq_vol_flow, co_vol_flow,droplet_volume] = Ca_num_func(int_tension,Ca_
 %     [2] C. N. Baroud, F. Gallaire, and R. Dangla, “Dynamics of 
 %         microfluidic droplets,” Lab Chip, vol. 10, no. 16, pp. 
 %         2032–2045, 2010.
-%   
+% Author: Ricardo García Ramírez 17. July 2019
+% ricardogr[at]uvic.ca, a00759652[at]itesm.mx 
 %
 %Input arguments
 %
@@ -37,8 +38,7 @@ function [aq_vol_flow, co_vol_flow,droplet_volume] = Ca_num_func(int_tension,Ca_
 %      aq_vol_flow      Disperse phase flow rate[µL/min]
 %      co_vol_flow      Continuous phase flow rate[µL/min]
 %      droplet_volume   Calculated volume of droplet [pL]
-% Author: Ricardo García Ramírez 17. July 2019
-% ricardogr[at]uvic.ca, a00759652[at]itesm.mx
+
 
 %Input parameters
 wc = 100e-6; %width of channel [m]
